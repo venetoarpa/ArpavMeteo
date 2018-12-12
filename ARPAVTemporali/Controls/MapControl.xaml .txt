@@ -1,0 +1,608 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using Xamarin.Forms;
+using Xamarin.Forms.GoogleMaps;
+using System.Reflection;
+using System.IO;
+using ARPAVTemporali.Models;
+using ARPAVTemporali.Views.Settings;
+using System.Threading;
+using System.Threading.Tasks;
+using FFImageLoading.Forms;
+using FFImageLoading;
+using System.Collections.ObjectModel;
+
+namespace ARPAVTemporali.Controls
+{
+    public partial class MapControl : ContentView
+    {
+        //Map map;
+        GroundOverlay _overlay;
+        private UserSettings _userSettings;
+        private double _animationSpeed;
+        private float _overlayOpacity;
+
+        private CancellationTokenSource _cancellationToken;
+        private int _counter = 0;
+
+        private List<string> _overlays;
+
+        private bool _isPlaying = true;
+
+        public bool IsPlaying { get; set; }
+
+        private Map map;
+
+        public Map MyMap
+        {
+            get{
+                return map;
+            }
+            set {
+                map = value;
+            }
+        }
+
+		public async Task PeriodicFooAsync(TimeSpan interval, CancellationToken cancellationToken)
+		{
+			await Task.Run(async () =>
+			{
+				while (true)
+				{
+					Debug.WriteLine("executing");
+					await Task.Delay(interval, cancellationToken);
+				}
+			});
+		}
+        public List<GroundOverlay> _groundOverlays = new List<GroundOverlay>();
+        public Assembly _assembly = typeof(MapControl).GetTypeInfo().Assembly;
+        public Stream _stream;
+        public List<Stream> _streams = new List<Stream>(); 
+        public MapControl()
+        {
+
+            /*CancellationToken token = new CancellationToken();
+            TimeSpan interval = new TimeSpan(123);
+            PeriodicFooAsync(interval, token);*/
+
+            var app = Application.Current as App;
+            _userSettings = app.UserSettings;
+
+            _overlays = new List<string>
+            {
+                "mosaico_201705191400_mpgrid_CZ_c_mbasemax_G.png",
+                "mosaico_201705191410_mpgrid_CZ_c_mbasemax_G.png",
+                "mosaico_201705191420_mpgrid_CZ_c_mbasemax_G.png",
+                "mosaico_201705191430_mpgrid_CZ_c_mbasemax_G.png",
+                "mosaico_201705191440_mpgrid_CZ_c_mbasemax_G.png",
+                "mosaico_201705191450_mpgrid_CZ_c_mbasemax_G.png",
+                "mosaico_201705191500_mpgrid_CZ_c_mbasemax_G.png",
+                "mosaico_201705191510_mpgrid_CZ_c_mbasemax_G.png",
+                "mosaico_201705191520_mpgrid_CZ_c_mbasemax_G.png",
+                "mosaico_201705191530_mpgrid_CZ_c_mbasemax_G.png",
+                "mosaico_201705191540_mpgrid_CZ_c_mbasemax_G.png",
+                "mosaico_201705191550_mpgrid_CZ_c_mbasemax_G.png",
+                "mosaico_201705191600_mpgrid_CZ_c_mbasemax_G.png",
+            };
+
+
+
+
+            /*
+             * inizio test
+             */
+
+            foreach (var overlay in _overlays)
+            {
+                Stream stream = _assembly.GetManifestResourceStream(overlay);
+                _streams.Add(stream);
+                /*Assembly assembly = typeof(MapControl).GetTypeInfo().Assembly;
+                _stream = _assembly.GetManifestResourceStream(overlay);
+                Assembly assembly = typeof(MapControl).GetTypeInfo().Assembly;
+                var stream = assembly.GetManifestResourceStream(overlay);
+                using (var stream = assembly.GetManifestResourceStream(overlay))
+                {
+                }
+                    GroundOverlay groundOverlay = new GroundOverlay()
+                    {
+                        //Bounds = new Bounds(new Position(44.0, 15.0), new Position(47.2, 9.6)), //bottom, right, top, left
+                        Bounds = new Bounds(new Position(44.0, 9.6), new Position(47.2, 15.0)),
+                        //Icon = BitmapDescriptorFactory.FromBundle("image01.png"),
+                        Icon = BitmapDescriptorFactory.FromStream(_stream),
+                        //Icon = myImage,
+                        //Transparency = 0.9f,
+                        Tag = "THE GROUNDOVERLAY",
+                    };
+                    _groundOverlays.Add(groundOverlay);
+
+                    //GC.Collect(); //forza il garbage collector a fare il suo dovere
+                    */
+            }
+            Debug.WriteLine("numero di ground overlays: "+_groundOverlays.Count());
+            /*
+             * fine test
+             */
+
+			InitializeComponent();
+
+            map = new Map
+            {
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                HorizontalOptions = LayoutOptions.FillAndExpand
+            };
+
+            /*
+            * Map settings
+            */
+            map.UiSettings.MyLocationButtonEnabled = true;
+			map.UiSettings.TiltGesturesEnabled = true;
+			map.IsShowingUser = true; // obsolete, but working on iOS
+			map.UiSettings.ZoomControlsEnabled = false;
+			map.UiSettings.CompassEnabled = true;
+			map.MyLocationEnabled = true;
+
+			//posizione iniziale
+			CameraUpdate cameraUpdate = CameraUpdateFactory.NewCameraPosition(new CameraPosition(
+				  Variables.InitialPosition,  // latlng
+				  10d, // zoom
+				  0d, // rotation
+				  0d)); // tilt
+
+			map.InitialCameraUpdate = cameraUpdate;
+
+            // Map Long clicked
+            map.MapLongClicked += (sender, e) =>
+            {
+                var lat = e.Point.Latitude.ToString("0.000");
+                var lng = e.Point.Longitude.ToString("0.000");
+                Debug.WriteLine("MapLongClicked", $"{lat}/{lng}", "CLOSE");
+
+            };
+
+            // Map MyLocationButton clicked
+            map.MyLocationButtonClicked += (sender, args) =>
+            {
+
+                Debug.WriteLine("MyLocationButtonClicked",
+                             "If set MyLocationButtonClickedEventArgs.Handled = true then skip obtain current location",
+                             "OK");
+            };
+
+			AbsoluteLayout.SetLayoutFlags(map, AbsoluteLayoutFlags.All);
+			AbsoluteLayout.SetLayoutBounds(map, new Rectangle(1, 1, 1, 1));
+
+            layout.Children.Add(map);
+
+			/*
+             * TODO: fare in modo che se l'animazione era in corso riprenda dopo qualche ms
+             * che non avviene un cameraChanged usando una Task
+             */
+			map.CameraChanged += (object sender, CameraChangedEventArgs e) => {
+				if (_isPlaying)
+					Pause();
+			};
+
+            MessagingCenter.Subscribe<MapControl, bool>(this, Events.MapPlayingStatusChangedLabel, OnMapPlayingStatusChanged);
+
+        }
+
+        private void printRaggiComuni()
+        {
+            ObservableCollection<ComuneSettings> settingsComuni = _userSettings.Comuni;
+            map.Pins.Clear();
+            map.Circles.Clear();
+            foreach (ComuneSettings settings in settingsComuni  )
+            {
+                Debug.WriteLine(settings.Name);
+                Comune comune = Variables.Comuni.FirstOrDefault(_comune => _comune.Name == settings.Name);
+                if (comune != null)
+                {
+                    /*
+                     * aggiungi i pin
+                     */
+                    Position comunePosition = new Position(comune.lat, comune.lng);
+					var pin = new Pin()
+					{
+						Type = PinType.Place,
+                        Label = comune.Name,
+                        Address = settings.Range.ToString(),
+                        Position = comunePosition,
+						Rotation = 0.0f,
+                        Tag = "id_"+comune.Name,
+						IsVisible = true
+					};
+                    map.Pins.Add(pin);
+
+                    /*
+                     * aggiungi i raggi
+                     */
+                    if(settings.ShowRange) //check showRange
+                    {
+                        double range = settings.Range * 1000;
+                        Circle circle = new Circle();
+                        circle.IsClickable = true;
+                        circle.Center = comunePosition;
+                        circle.Radius = Distance.FromMeters(range);
+
+                        circle.StrokeColor = Color.Aqua;
+                        circle.StrokeWidth = 3f;
+                        circle.FillColor = Color.FromRgba(0, 0, 255, 32);
+                        circle.Tag = "CIRCLE"; // Can set any object
+
+                        circle.Clicked += (sender, e) => Debug.WriteLine("Clicked");
+
+                        map.Circles.Add(circle);
+					}
+                }
+            }
+        }
+
+        private float CalculateOverlayOpacity() {
+			float _opacity = (float)_userSettings.Opacity; //imposto l'opacità dell'overlay in base alle preferenze
+
+            // in android l'opacità funziona al contrario
+            if (Device.RuntimePlatform == Device.Android)
+				_opacity = 100.0f - _opacity;
+
+			return _opacity / 100f;
+        }
+
+        private void OnMapPlayingStatusChanged(MapControl source, bool status)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                _isPlaying = status;
+                if(_isPlaying)
+                {
+                    buttonPlay.Text = "pause";
+                    buttonPrev.IsEnabled = false;
+                    buttonNext.IsEnabled = false;
+                }else {
+                    buttonPlay.Text = "play";
+                    buttonPrev.IsEnabled = (_counter > 0);
+                    buttonNext.IsEnabled = (_counter < _overlays.Count()-1);
+                }
+			});
+        }
+
+		void Handle_ReloadClicked(object sender, System.EventArgs e)
+		{
+            if (_cancellationToken != null) _cancellationToken.Cancel(); //per sicurezza
+			_counter = 0;
+			_cancellationToken = StartTask((int)_animationSpeed);
+		}
+
+        public void Play()
+        {
+			if (_cancellationToken != null) _cancellationToken.Cancel(); //per sicurezza
+			_cancellationToken = StartTask((int)_animationSpeed);
+        }
+
+        public void Pause()
+        {
+            if (_cancellationToken != null) _cancellationToken.Cancel(); //cancella il task in background
+		}
+
+        void Handle_PlayPauseClicked(object sender, System.EventArgs e)
+        {
+            if(_isPlaying)
+                Pause();
+            else
+                Play();
+        }
+
+        void Handle_PrevClicked(object sender, System.EventArgs e)
+        {
+            if (--_counter < 0)
+                _counter = 0;
+
+            SetOverlayImage();
+
+            MessagingCenter.Send(this, Events.MapPlayingStatusChangedLabel, false); //send playing false
+
+			//Debug.WriteLine("prev:" + _counter);
+        }
+
+		void Handle_NextClicked(object sender, System.EventArgs e)
+		{
+            if (++_counter >= _overlays.Count()-1)
+				_counter = _overlays.Count()-1;
+
+			SetOverlayImage();
+            MessagingCenter.Send(this, Events.MapPlayingStatusChangedLabel, false); //send playing false
+
+			//Debug.WriteLine("next:" + _counter);
+		}
+
+
+        private CancellationTokenSource StartTask( int interval = 1000)
+        {
+            CancellationTokenSource cancellationToken = new CancellationTokenSource();
+            Task.Run(() => timer(cancellationToken, interval));
+            return cancellationToken;
+        }
+
+        /*
+         * esempio di creazione di una funzione con TASK
+         * notare async di fronte a Task<Stream>
+         * utilizzo:
+         * var stream1 = await ImageService.Instance.LoadStream(token => GetStream(token)).AsPNGStreamAsync();
+         * 
+         private async Task<Stream> GetStream(CancellationToken token) {
+            string currentImage = "ARPAVTemporali.Images.Layers." + _overlays.ElementAt(_counter);
+            Stream stream = _assembly.GetManifestResourceStream(currentImage);
+            return stream;
+        }
+        */
+        public GroundOverlay _currentGroundOverlay;
+
+        public void ApplicaOverlay()
+        {
+			if (_currentGroundOverlay != null)
+			{
+				map.GroundOverlays.Remove(_currentGroundOverlay);
+				//GC.Collect(); //forza il garbage collector a fare il suo dovere
+			}
+			_currentGroundOverlay = _groundOverlays.ElementAt(_counter++) as GroundOverlay;
+			Debug.WriteLine("counbter: " + _counter);
+			Debug.WriteLine(_currentGroundOverlay.Tag);
+
+			if (_counter >= _overlays.Count() - 1)
+				_counter = 0;
+
+			string currentImage = "ARPAVTemporali.Images.Layers.Resized" + _overlays.ElementAt(_counter);
+			Debug.WriteLine("map:" + map);
+			Debug.WriteLine("map overlays:" + map.GroundOverlays);
+			_currentGroundOverlay.Transparency = CalculateOverlayOpacity();
+            GroundOverlay myoverlay = _currentGroundOverlay;
+            if (myoverlay != null)
+                Debug.WriteLine("non è null questo oggetto");
+            
+			map.GroundOverlays.Add(myoverlay);
+			Debug.WriteLine("numero di ground overlays: " + _groundOverlays.Count());
+			Debug.WriteLine("counbter: " + _counter);
+			Debug.WriteLine(_currentGroundOverlay);
+        }
+        public void ApplicaOverlayConStream()
+        {
+			if (_currentGroundOverlay != null)
+			{
+				map.GroundOverlays.Remove(_currentGroundOverlay);
+				//GC.Collect(); //forza il garbage collector a fare il suo dovere
+			}
+            Stream stream = _streams.ElementAt(_counter++) as Stream;
+			GroundOverlay groundOverlay = new GroundOverlay()
+			{
+				//Bounds = new Bounds(new Position(44.0, 15.0), new Position(47.2, 9.6)), //bottom, right, top, left
+				Bounds = new Bounds(new Position(44.0, 9.6), new Position(47.2, 15.0)),
+				//Icon = BitmapDescriptorFactory.FromBundle("image01.png"),
+				Icon = BitmapDescriptorFactory.FromStream(stream),
+				//Icon = myImage,
+				//Transparency = 0.9f,
+				Tag = "THE GROUNDOVERLAY",
+			};
+            _currentGroundOverlay = groundOverlay;
+            map.GroundOverlays.Add(groundOverlay);
+            Debug.WriteLine(_streams.Count());
+        }
+		private async Task timer(CancellationTokenSource cancellationToken, int interval = 1000)
+		{
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                //Debug.WriteLine("running");
+                try
+                {
+                    cancellationToken.Token.ThrowIfCancellationRequested();
+
+					/*
+                     * ----- inizio aggiornamento immagine
+                     */
+
+					
+
+					Device.BeginInvokeOnMainThread(() =>
+					{
+					
+                        ApplicaOverlayConStream();
+
+                    });
+
+                        //string url = "https://openclipart.org/image/2400px/svg_to_png/254028/Lens-Flare-Sunset.png";
+                        //Stream test = await ImageService.Instance.LoadUrl(url).AsPNGStreamAsync();
+
+                        //SetOverlayImage(); //disabilitato temporaneamente per verificare problemi memoria
+
+					MessagingCenter.Send(this, Events.MapPlayingStatusChangedLabel, true); //send playing true
+                    /*
+                     * ----- fine aggiornamento immagine
+                     */
+
+                    await Task.Delay(interval, cancellationToken.Token).ContinueWith( (arg) =>
+                    {
+
+                        if (!cancellationToken.Token.IsCancellationRequested)
+                        {
+
+                            cancellationToken.Token.ThrowIfCancellationRequested();
+
+                            //Debug.WriteLine("TimerRunning " + _counter.ToString());
+                        }
+                    });
+                    //Debug.WriteLine (DateTime.Now.ToLocalTime ().ToString () + " DELAY: " + delay);
+
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("EX 1: " + ex.Message);
+                }
+
+            }
+            //Debug.WriteLine("out of while");
+			MessagingCenter.Send(this, Events.MapPlayingStatusChangedLabel, false); //send playing false
+		}
+
+		/*public static async Task Run(Action action, TimeSpan period, CancellationToken cancellationToken)
+		{
+			while (!cancellationToken.IsCancellationRequested)
+			{
+				await Task.Delay(period, cancellationToken);
+
+				if (!cancellationToken.IsCancellationRequested)
+					action();
+			}
+		}*/
+
+        private void SetOverlayImage()
+        {
+            Assembly assembly = typeof(MapControl).GetTypeInfo().Assembly;
+            string currentImage = "ARPAVTemporali.Images.Layers." + _overlays.ElementAt(_counter);
+
+            using (var stream = assembly.GetManifestResourceStream(currentImage))
+            {
+                
+                map.GroundOverlays.Remove(_overlay);
+                _overlay = null;
+                GC.Collect(); //forza il garbage collector a fare il suo dovere
+
+                _overlay = new GroundOverlay()
+                {
+                    //Bounds = new Bounds(new Position(44.0, 15.0), new Position(47.2, 9.6)), //bottom, right, top, left
+                    Bounds = new Bounds(new Position(44.0, 9.6), new Position(47.2, 15.0)),
+                    //Icon = BitmapDescriptorFactory.FromBundle("image01.png"),
+                    Icon = BitmapDescriptorFactory.FromStream(stream),
+                    //Icon = myImage,
+                    //Transparency = 0.9f,
+                    Tag = "THE GROUNDOVERLAY",
+                };
+
+                _overlay.Transparency = CalculateOverlayOpacity();
+
+                try
+                {
+
+					map.GroundOverlays.Add(_overlay); //disabilitato per crash su vecchi android
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("errore:" + ex.Message);
+                }
+
+                _overlay.Clicked += (sender, e) =>
+                {
+                    var overlay = sender as GroundOverlay;
+                    Debug.WriteLine("Clicked", overlay.Tag as string, "CLOSE");
+                };
+			}
+        }
+
+        public void SetMapType()
+        {
+			
+			string mapType = _userSettings.MapType;
+
+            Xamarin.Forms.GoogleMaps.MapType type;
+            switch (mapType)
+            {
+                case "Hybrid":
+                    type = Xamarin.Forms.GoogleMaps.MapType.Hybrid;
+                    break;
+                case "Street":
+					type = Xamarin.Forms.GoogleMaps.MapType.Street;
+                    break;
+                case "Satellite":
+                    type = Xamarin.Forms.GoogleMaps.MapType.Satellite;
+                    break;
+                case "Terrain":
+					type = Xamarin.Forms.GoogleMaps.MapType.Terrain;
+                    break;
+                default:
+                    type = Xamarin.Forms.GoogleMaps.MapType.Street;
+                    break;
+            }
+            map.MapType = type;
+        }
+
+        public void InitMap() {
+            /*
+             * operazioni preliminari; spostare in metodo a parte
+             */
+            _counter = 0;
+            _overlayOpacity = CalculateOverlayOpacity();
+            _animationSpeed = _userSettings.AnimationSpeed * 1000;
+            if (_cancellationToken != null) _cancellationToken.Cancel();
+            _cancellationToken = StartTask((int)_animationSpeed);
+            //fine operazioni preliminari
+
+            SetMapType(); //imposta il MapType in base alle preferenze dell'utente
+
+			printRaggiComuni(); //add pins to the map
+
+            //if (layout.Children.Contains(map))
+                //layout.Children.Remove(map);
+            
+
+
+			//ImageSource myImage = ImageSource.FromResource("ARPAVTemporali.Images.Layers.mosaico_201705191400_mpgrid_CZ_c_mbasemax_G.png"); //carico un file locale come sempre
+
+			//_stream = _assembly.GetManifestResourceStream("ARPAVTemporali.Images.Layers.mosaico_201705191400_mpgrid_CZ_c_mbasemax_G.png");
+
+            //SetOverlayImage(_stream);
+
+            //var geocoder = new Xamarin.Forms.GoogleMaps.Geocoder();
+
+    //        var positions = await geocoder.GetPositionsForAddressAsync("Padova");
+    //        if (positions.Count() > 0)
+    //        {
+    //            var pos = positions.First();
+
+				//map.MoveToRegion(MapSpan.FromCenterAndRadius(pos, Distance.FromMeters(20000)));
+				//MapSpan reg = map.VisibleRegion;
+				//string format = "0.00";
+				//string center = $"Center = {reg.Center.Latitude.ToString(format)}, {reg.Center.Longitude.ToString(format)}";
+
+
+				///*CameraUpdate cameraUpdate = CameraUpdateFactory.NewCameraPosition(new CameraPosition(
+            //	  pos,  // latlng
+            //	  14d, // zoom
+            //	  0d, // rotation
+            //	  0d)); // tilt
+
+            //    map.InitialCameraUpdate = cameraUpdate;*/
+
+            //}
+            //else
+            //{
+            //    Debug.WriteLine("Not found", "Geocoder returns no results", "Close");
+            //}
+
+
+            // Map Clicked
+            /*map.MapClicked += (sender, e) =>
+            {
+                var lat = e.Point.Latitude.ToString("0.000");
+                var lng = e.Point.Longitude.ToString("0.000");
+
+                Debug.WriteLine("MapClicked", $"{lat}/{lng}", "CLOSE");
+
+                var position1 = new Position(43.76956, 11.255814);
+                map.MoveToRegion(MapSpan.FromCenterAndRadius(position1, Distance.FromKilometers(10)));
+            };*/
+
+           
+
+
+
+
+
+        }
+
+
+        public async void takeSnapshot()
+        {
+			var stream = await map.TakeSnapshot();
+			//imageSnapshot.Source = ImageSource.FromStream(() => stream);
+		}
+    }
+}

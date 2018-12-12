@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ARPAVTemporali.Views.SettingsPages.RadarFulminiPage"
+    xmlns:converters="clr-namespace:ARPAVTemporali.Converters;assembly=ARPAVTemporali"
+    xmlns:i18n="clr-namespace:ARPAVTemporali.Helpers;assembly=ARPAVTemporali"
+    NavigationPage.HasNavigationBar="false"
+    ControlTemplate="{StaticResource MainPageTemplate}"
+    >
+	<ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <StackLayout Style="{StaticResource HeaderLayout}">
+                    <Label Text="{i18n:Translate Impostazioni.RadarFulmini.Titolo}"  Style="{StaticResource HeaderLabel}"/>
+                </StackLayout>
+                
+                <StackLayout Style="{StaticResource MainBodyLayout}">
+                    <Label Text="{i18n:Translate Impostazioni.RadarFulmini.Testo}"  Style="{StaticResource NormalLabel}"/>
+                    <Grid HorizontalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <!--<RowDefinition Height="*"/>-->
+                        </Grid.RowDefinitions>
+                            
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Text="Opacità:" Style="{StaticResource PropertyLabel}"/>
+                        <!--<Label Grid.Row="0" Grid.Column="1" Text="{Binding Opacity, StringFormat='{0:N}'}" />-->
+                        <Slider x:Name="opacitySlider" Grid.Row="0" Grid.Column="1" Maximum="100.0" Minimum="10.0"
+                        Value="{Binding UserSettings.Opacity}"
+                        ValueChanged="Handle_OpacityValueChanged" Unfocused="Handle_OpacityUnfocused"  />
+                    </Grid>
+                   
+                    <StackLayout x:Name="AnimationSpeedContainer" HorizontalOptions="FillAndExpand">
+                        <Label Grid.Row="0" Grid.Column="0" Text="Velocità animazione" Style="{StaticResource PropertyLabel}"/>
+
+                        <Picker Grid.Row="0" Grid.Column="1"
+                            ItemsSource="{Binding AnimationSpeeds}"
+                            Title="Scegli"
+                            x:Name="AnimationSpeedPicker"
+                            HorizontalOptions="FillAndExpand"
+                            SelectedIndex="{Binding SelectedAnimationSpeedIndex}"
+                            SelectedIndexChanged="Handle_AnimationSpeedSelectedIndexChanged" />
+                    </StackLayout>
+
+                    <StackLayout HorizontalOptions="FillAndExpand">
+                        <Label Grid.Row="0" Grid.Column="0" Text="Durata animazione" Style="{StaticResource PropertyLabel}"/>
+                        <Picker Grid.Row="0" Grid.Column="1"
+                            ItemsSource="{Binding AnimationDurations}"
+                            Title="Scegli"
+                            x:Name="AnimationDurationPicker"
+                            HorizontalOptions="FillAndExpand"
+                            SelectedIndex="{Binding SelectedAnimationDurationIndex}"
+                            SelectedIndexChanged="Handle_AnimationDurationSelectedIndexChanged" />
+                    </StackLayout>
+
+                </StackLayout><!-- fine main body -->
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

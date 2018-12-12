@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ARPAVTemporali.Views.SettingsPages.LanguageModalPage"
+    xmlns:local="clr-namespace:ARPAVTemporali;assembly=ARPAVTemporali"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    NavigationPage.HasNavigationBar="false"
+    >
+    <ContentPage.Content>
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <AbsoluteLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="Center">
+                <ffimageloading:CachedImage
+                    Source="{local:EmbeddedImage ARPAVTemporali.Images.Flags.italy-128.png}"
+                    AbsoluteLayout.LayoutBounds="0.5,0.5,1,1"
+                    AbsoluteLayout.LayoutFlags="All"/>
+                <Button BackgroundColor="Transparent" CommandParameter="it" Command="{Binding TapCommand}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"/>
+            </AbsoluteLayout>
+            
+            <AbsoluteLayout Grid.Row="0" Grid.Column="2" HorizontalOptions="Center">
+                <ffimageloading:CachedImage
+                    Source="{local:EmbeddedImage ARPAVTemporali.Images.Flags.united-kingdom-128.png}"
+                    AbsoluteLayout.LayoutBounds="0.5,0.5,1,1"
+                    AbsoluteLayout.LayoutFlags="All"/>
+                <Button BackgroundColor="Transparent" CommandParameter="en" Command="{Binding TapCommand}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"/>
+            </AbsoluteLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ARPAVTemporali.Views.SettingsPage1"
+    NavigationPage.HasNavigationBar="false"
+    ControlTemplate="{StaticResource MainPageTemplate}"
+    xmlns:controls="clr-namespace:ARPAVTemporali;assembly=ARPAVTemporali">
+	<ContentPage.Content>
+        <AbsoluteLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <ScrollView AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
+                <StackLayout>
+                    <Label  Text="Settings" HorizontalOptions="Center"/>
+                    <StackLayout x:Name="comuniLayout"></StackLayout>
+                    <StackLayout x:Name="strumentiLayout"></StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </AbsoluteLayout>
+	</ContentPage.Content>
+</ContentPage>

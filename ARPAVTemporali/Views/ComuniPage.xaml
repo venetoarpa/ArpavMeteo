@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ARPAVTemporali.Views.ComuniPage">
+	<ContentPage.Content>
+        <StackLayout>
+            <SearchBar Placeholder="Cerca..." TextChanged="Handle_TextChanged"/>
+            <ListView x:Name="listview" ItemTapped="Handle_ItemTapped" ItemSelected="Handle_ItemSelected"  >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                    <ViewCell>
+                        <!--<ViewCell.ContextActions>
+                            <MenuItem Clicked="OnMore" CommandParameter="{Binding .}"
+                               Text="More" />
+                            <MenuItem Clicked="OnDelete" CommandParameter="{Binding .}"
+                               Text="Delete" IsDestructive="True" />
+                        </ViewCell.ContextActions>-->
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding Id}" />
+                            <Label Text="{Binding Title}" />
+                        </StackLayout>
+                    </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+	</ContentPage.Content>
+</ContentPage>

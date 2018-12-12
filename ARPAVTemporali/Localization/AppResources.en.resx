@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+
+    <data name="OperazioneCompletata" xml:space="preserve">
+        <value>Operation completed</value>
+        <comment>example input for notes field</comment>
+    </data>
+
+    <data name="ImmagineSalvata" xml:space="preserve">
+        <value>Image saved in</value>
+        <comment>example input for notes field</comment>
+    </data>
+    
+	<data name="NotesPlaceholder" xml:space="preserve">
+        <value>compra il latte in inglese</value>
+        <comment>example input for notes field</comment>
+    </data>
+
+	<data name="Dummy" xml:space="preserve">
+        <value>value</value>
+        <comment>comment</comment>
+    </data>
+
+    <data name="Informazioni.Temporali.Titolo" xml:space="preserve">
+        <value>THUNDERSTORMS</value>
+        <comment>comment</comment>
+    </data>
+
+	<data name="Notifiche.Titolo" xml:space="preserve">
+        <value>Notifications</value>
+        <comment>comment</comment>
+    </data>
+
+    <data name="Notifiche.Testo" xml:space="preserve">
+        <value>Here you can read at the notifications received for your places of interest</value>
+        <comment>comment</comment>
+    </data>
+
+	<data name="Notifiche.Dettaglio.Testo" xml:space="preserve">
+        <value>The notification shows the name of the place, and within which distance from it, intense precipitations were detected</value>
+        <comment>comment</comment>
+    </data>
+
+	<data name="Notifiche.RilevatoFenomeno" xml:space="preserve">
+        <value>Intense precipitation detected within</value>
+        <comment>comment</comment>
+    </data>
+
+    <data name="Notifiche.ChilometriDalCapoluogo" xml:space="preserve">
+        <value>kilometers from the county town</value>
+        <comment>comment</comment>
+    </data>
+
+    <data name="Notifica.Titolo" xml:space="preserve">
+        <value>Notification</value>
+        <comment>comment</comment>
+    </data>
+
+	<data name="Impostazioni.Titolo" xml:space="preserve">
+        <value>Settings</value>
+        <comment>comment</comment>
+    </data>
+
+	<data name="Impostazioni.Comuni.Testo" xml:space="preserve">
+        <value>Selection of places on which receive a notification of thunderstorm in the vicinity.
+You can have up to three places at the same time for the notification of thunderstorms.</value>
+        <comment>comment</comment>
+    </data>
+
+    <data name="Impostazioni.Comune.Testo" xml:space="preserve">
+        <value>These options allows to configure the notifications for the single place, in particular the intensity of precipitations and the distance from the place.</value>
+        <comment>comment</comment>
+    </data>
+
+	<data name="Impostazioni.RadarFulmini.Testo" xml:space="preserve">
+        <value>Options for the transparency of the radar images and the speed of animation</value>
+        <comment>comment</comment>
+    </data>
+
+    <data name="Impostazioni.Mappa.Titolo" xml:space="preserve">
+        <value>Map</value>
+        <comment></comment>
+    </data>
+
+    <data name="Impostazioni.RadarFulmini.Titolo" xml:space="preserve">
+        <value>Radar and lightnings images</value>
+        <comment></comment>
+    </data>
+
+    <data name="Impostazioni.SelezionaLocalita.Titolo" xml:space="preserve">
+        <value>Select place</value>
+        <comment></comment>
+    </data>
+
+	<data name="Impostazioni.CercaComune.Titolo" xml:space="preserve">
+        <value>Search place</value>
+        <comment>comment</comment>
+    </data>
+
+    <data name="Impostazioni.Lingua.Titolo" xml:space="preserve">
+        <value>Language</value>
+        <comment></comment>
+    </data>
+
+    <data name="Impostazioni.Notifiche.Titolo" xml:space="preserve">
+        <value>Notification options</value>
+        <comment></comment>
+    </data>
+
+	<data name="Impostazioni.Notifiche.Testo" xml:space="preserve">
+        <value>This panel allow to activate the notifications and configure the general options, such as the sound and the interval beetween sending.</value>
+        <comment>comment</comment>
+    </data>
+
+    <data name="Impostazioni.Notifiche.AbilitaNotifiche" xml:space="preserve">
+        <value>Enable notifications</value>
+        <comment>comment</comment>
+    </data>
+
+    <data name="Impostazioni.Notifiche.Intervallo" xml:space="preserve">
+        <value>Interval</value>
+        <comment>comment</comment>
+    </data>
+
+    <data name="Impostazioni.Notifiche.Suono" xml:space="preserve">
+        <value>Sound</value>
+        <comment>comment</comment>
+    </data>
+
+    <data name="Impostazioni.Notifiche.NonDisturbare" xml:space="preserve">
+        <value>Do not disturb</value>
+        <comment>comment</comment>
+    </data>
+
+    <data name="Impostazioni.Notifiche.NonDisturbare.Da" xml:space="preserve">
+        <value>from</value>
+        <comment>comment</comment>
+    </data>
+
+    <data name="Impostazioni.Notifiche.NonDisturbare.A" xml:space="preserve">
+        <value>to</value>
+        <comment>comment</comment>
+    </data>
+
+    <data name="Informazioni.Titolo" xml:space="preserve">
+        <value>Information</value>
+        <comment>comment</comment>
+    </data>
+
+	<data name="Impostazioni.Comune.Intensita" xml:space="preserve">
+        <value>intensity</value>
+        <comment>comment</comment>
+    </data>
+
+    <data name="Impostazioni.Comune.Raggio" xml:space="preserve">
+        <value>range (km)</value>
+        <comment>comment</comment>
+    </data>
+
+    <data name="Impostazioni.Comune.MostraRaggio" xml:space="preserve">
+        <value>show range</value>
+        <comment>comment</comment>
+    </data>
+
+	<data name="Share.Titolo" xml:space="preserve">
+        <value>Share</value>
+        <comment>comment</comment>
+    </data>
+
+    <data name="Variables.Overlay.Radar" xml:space="preserve">
+        <value>Radar</value>
+    </data>
+
+    <data name="Variables.Overlay.Fulmini" xml:space="preserve">
+        <value>Lightnings</value>
+    </data>
+
+    <data name="Variables.Overlay.Ibrida" xml:space="preserve">
+        <value>Hybrid</value>
+    </data>
+
+    <data name="Variables.Intensita.Intenso" xml:space="preserve">
+        <value>intense</value>
+    </data>
+
+    <data name="Variables.Intensita.MoltoIntenso" xml:space="preserve">
+        <value>very intense</value>
+    </data>
+
+    <data name="Variables.ora" xml:space="preserve">
+        <value>hour</value>
+    </data>
+
+    <data name="Variables.ore" xml:space="preserve">
+        <value>hours</value>
+    </data>
+
+    <data name="Variables.minuti" xml:space="preserve">
+        <value>minutes</value>
+    </data>
+
+    <data name="Variables.AnimationSpeeds.lenta" xml:space="preserve">
+        <value>slow</value>
+    </data>
+
+    <data name="Variables.AnimationSpeeds.media" xml:space="preserve">
+        <value>medium</value>
+    </data>
+
+    <data name="Variables.AnimationSpeeds.rapida" xml:space="preserve">
+        <value>fast</value>
+    </data>
+
+    <data name="Variables.Sounds.tuono" xml:space="preserve">
+        <value>thunder</value>
+    </data>
+
+    <data name="Variables.MapTypes.Standard" xml:space="preserve">
+        <value>Standard</value>
+    </data>
+
+    <data name="Variables.MapTypes.Rilievo" xml:space="preserve">
+        <value>Terrain</value>
+    </data>
+
+    <data name="Variables.MapTypes.Satellite" xml:space="preserve">
+        <value>Satellite</value>
+    </data>
+
+    <data name="Variables.MapTypes.Ibrida" xml:space="preserve">
+        <value>Hybrid</value>
+    </data>
+
+    <data name="MapControl.Annulla" xml:space="preserve">
+        <value>undo</value>
+    </data>
+
+    <data name="MapControl.ScegliLayer" xml:space="preserve">
+        <value>map</value>
+    </data>
+	
+</root>

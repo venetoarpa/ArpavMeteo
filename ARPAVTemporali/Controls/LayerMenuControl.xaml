@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ARPAVTemporali.Controls.LayerMenuControl"
+    xmlns:local="clr-namespace:ARPAVTemporali;assembly=ARPAVTemporali"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations">
+	<ContentView.Content>
+        <Grid >
+            <AbsoluteLayout Grid.Row="0">
+                <ffimageloading:CachedImage AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5,0.5,1,1"
+                    x:Name="mosaicoLayerButton"
+                    Source="{local:EmbeddedImage ARPAVTemporali.Images.Icons.antenna-128.png}">
+                </ffimageloading:CachedImage>
+                <Button BackgroundColor="Transparent" CommandParameter="mosaico" Command="{Binding TapCommand}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
+            </AbsoluteLayout>
+
+            <AbsoluteLayout Grid.Row="1">
+                <ffimageloading:CachedImage AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5,0.5,1,1"
+                    x:Name="fulminiLayerButton"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"
+                    Source="{local:EmbeddedImage ARPAVTemporali.Images.Icons.lightning-128.png}">
+                </ffimageloading:CachedImage>
+                <Button BackgroundColor="Transparent" CommandParameter="fulmini" Command="{Binding TapCommand}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
+            </AbsoluteLayout>
+        </Grid>
+	</ContentView.Content>
+</ContentView>

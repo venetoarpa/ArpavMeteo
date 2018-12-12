@@ -1,0 +1,17 @@
+﻿<Properties StartupConfiguration="{7185ABDA-1F72-428B-8964-5A66E130AA13}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ARPAVTemporali/Variables.cs">
+    <Files>
+      <File FileName="ARPAVTemporali/Variables.cs" Line="30" Column="81" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches>
+    <Watch file="../MuseoDeltaAntico/iOS/Persistence/FileHelper.cs" line="37" offsetX="682" offsetY="540" expression="NSBundle.MainBundle" liveUpdate="False" />
+  </MonoDevelop.Ide.DebuggingService.PinnedWatches>
+  <MonoDevelop.Ide.ItemProperties.ARPAVTemporali.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.A541B9B4-6441-469A-8F2C-6CC54627302F" automaticSigning="False" identitySerialNumber="151BE52CC753543D" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.ARPAVTemporali.Droid AndroidDesignerPreferredDevice="Nexus 5" PreferredExecutionTarget="Android.Android_Accelerated_Nougat" AndroidDesignerPreferredTheme="Theme.DeviceDefault" />
+</Properties>

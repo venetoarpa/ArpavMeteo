@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ARPAVTemporali.Controls.SliderOptionControl"
+    >
+    <!--<StackLayout
+        Orientation="Horizontal">
+        <Label x:Name="label" Text="name" />
+        <Label x:Name="sliderValue" Text="value" HorizontalOptions="StartAndExpand"/>
+        <Slider x:Name="slider" Minimum="0" Maximum="50" ValueChanged="Handle_ValueChanged"></Slider>
+    </StackLayout>-->
+    <Grid ColumnSpacing="1" RowSpacing="1" BackgroundColor="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" x:Name="label" Text="name" />
+        <Label Grid.Row="1" Grid.Column="0" x:Name="sliderValue" Text="value" HorizontalOptions="StartAndExpand"/>
+        <Slider Grid.Row="1" Grid.Column="1" x:Name="slider" Maximum="50" Minimum="0" ValueChanged="Handle_ValueChanged"></Slider>
+    </Grid>
+</ContentView>

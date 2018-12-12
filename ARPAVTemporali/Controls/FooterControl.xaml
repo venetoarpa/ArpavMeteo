@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ARPAVTemporali.Controls.FooterControl"
+    xmlns:local="clr-namespace:ARPAVTemporali;assembly=ARPAVTemporali"
+    xmlns:controls="clr-namespace:ARPAVTemporali.Controls;assembly=ARPAVTemporali"
+    xmlns:converters="clr-namespace:ARPAVTemporali.Converters;assembly=ARPAVTemporali"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    >
+	<ContentView.Content>
+        <Grid
+        Padding="{DynamicResource FooterPadding}"
+        BackgroundColor="#e7e7e7"
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand"
+        ColumnSpacing="1"
+        RowSpacing="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+                
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+
+            <AbsoluteLayout Grid.Row="0" Grid.Column="0">
+                <ffimageloading:CachedImage AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5,0.5,1,1"
+                    Source="{local:EmbeddedImage ARPAVTemporali.Images.Icons.settings-128.png}">
+                    <ffimageloading:CachedImage.Transformations>
+                        <!-- First two digits from HexColor = ALPHA channel -->
+                        <fftransformations:TintTransformation HexColor="#ff007267" EnableSolidColor="true"/>
+                    </ffimageloading:CachedImage.Transformations>
+                </ffimageloading:CachedImage>
+                <Button BackgroundColor="Transparent" CommandParameter="Views.SettingsPage" Command="{Binding TapCommand}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5,0.5,1,1"/>
+            </AbsoluteLayout>
+            
+            <AbsoluteLayout Grid.Row="0" Grid.Column="1">
+                <ffimageloading:CachedImage AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5,0.5,1,1"
+                    Source="{local:EmbeddedImage ARPAVTemporali.Images.Icons.warning-128.png}">
+                        <ffimageloading:CachedImage.Transformations>
+                            <!-- First two digits from HexColor = ALPHA channel -->
+                            <fftransformations:TintTransformation HexColor="#ff007267" EnableSolidColor="true"/>
+                        </ffimageloading:CachedImage.Transformations>
+                </ffimageloading:CachedImage>
+                <controls:BadgeView x:Name="notificationBadge"
+                    Text=""
+                    BadgeColor="Red"
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    AbsoluteLayout.LayoutBounds="1,0,16,16"
+                    TranslationX="-5"/>
+                <Button BackgroundColor="Transparent" CommandParameter="Views.NotificationListPage" Command="{Binding TapCommand}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
+            </AbsoluteLayout>
+
+            <AbsoluteLayout Grid.Row="0" Grid.Column="3">
+                <ffimageloading:CachedImage AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5,0.5,1,1"
+                    Source="{local:EmbeddedImage ARPAVTemporali.Images.Icons.share-128.png}">
+                    <ffimageloading:CachedImage.Transformations>
+                        <!-- First two digits from HexColor = ALPHA channel -->
+                        <fftransformations:TintTransformation HexColor="#ff007267" EnableSolidColor="true"/>
+                    </ffimageloading:CachedImage.Transformations>
+                </ffimageloading:CachedImage>
+                <Button x:Name="shareButton" BackgroundColor="Transparent" Clicked="Handle_ShareTapped" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
+            </AbsoluteLayout>
+            
+            <AbsoluteLayout Grid.Row="0" Grid.Column="4">
+                <ffimageloading:CachedImage AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5,0.5,1,1"
+                    Source="{local:EmbeddedImage ARPAVTemporali.Images.Icons.info-128.png}">
+                        <ffimageloading:CachedImage.Transformations>
+                            <!-- First two digits from HexColor = ALPHA channel -->
+                            <fftransformations:TintTransformation HexColor="#ff007267" EnableSolidColor="true"/>
+                        </ffimageloading:CachedImage.Transformations>
+                </ffimageloading:CachedImage>
+                <Button BackgroundColor="Transparent" CommandParameter="Views.Info.InfoListPage" Command="{Binding TapCommand}" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
+            </AbsoluteLayout>
+
+            <AbsoluteLayout Grid.Row="0" Grid.Column="2">
+                <ffimageloading:CachedImage
+                    InputTransparent="true"
+                    Source="{local:EmbeddedImage ARPAVTemporali.Images.circle-button-128.png}"
+                    AbsoluteLayout.LayoutFlags="All"
+                    AbsoluteLayout.LayoutBounds="0.5,0.5,2,2">
+                </ffimageloading:CachedImage>
+                <ffimageloading:CachedImage
+                    Source="{local:EmbeddedImage ARPAVTemporali.Images.Icons.layer-128.png}"
+                    AbsoluteLayout.LayoutFlags="All"
+                    AbsoluteLayout.LayoutBounds="0.5,0.5,1.2,1.2">
+                    <ffimageloading:CachedImage.Transformations>
+                        <!-- First two digits from HexColor = ALPHA channel -->
+                        <fftransformations:TintTransformation HexColor="#ff007267" EnableSolidColor="true"/>
+                    </ffimageloading:CachedImage.Transformations>
+                </ffimageloading:CachedImage>
+                <Button BackgroundColor="Transparent" Clicked="Handle_LayerTapped" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
+            </AbsoluteLayout>
+
+      </Grid>
+	</ContentView.Content>
+</ContentView>

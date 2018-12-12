@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ARPAVTemporali.Controls.HeaderControl"
+    xmlns:local="clr-namespace:ARPAVTemporali;assembly=ARPAVTemporali"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    >
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <!-- ricordati di impostare BindingContext = this nel code behind -->
+            <Style TargetType="Entry">
+                <Style.Triggers>
+                    <Trigger TargetType="Entry"
+                             Property="IsFocused" Value="True">
+                        <Setter Property="BackgroundColor" Value="Yellow" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+	<ContentView.Content>
+        <Grid
+        Padding="{DynamicResource HeaderPadding}"
+        BackgroundColor="#e7e7e7"
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand"
+        ColumnSpacing="1"
+        RowSpacing="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+                
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <AbsoluteLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="Start">
+                <ffimageloading:CachedImage AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0.5,1,1"
+                    HorizontalOptions="Start"
+                    IsVisible="{Binding IsHome, Converter={StaticResource cnvInvert}}"
+                    x:Name="backImage" Source="{local:EmbeddedImage ARPAVTemporali.Images.Icons.back-128.png}">
+                    <ffimageloading:CachedImage.Transformations>
+                        <!-- First two digits from HexColor = ALPHA channel -->
+                        <fftransformations:TintTransformation HexColor="#ff007267" EnableSolidColor="true"/>
+                    </ffimageloading:CachedImage.Transformations>
+                </ffimageloading:CachedImage>
+                <Button BackgroundColor="Transparent" Clicked="OnBackButtonPressed" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
+            </AbsoluteLayout>
+
+            <StackLayout Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                <AbsoluteLayout>
+                    <ffimageloading:CachedImage AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5,0.5,1,1"
+                        x:Name="logoArpavImage" Source="{local:EmbeddedImage ARPAVTemporali.Images.Loghi.logosenzascritta.png}">
+                    </ffimageloading:CachedImage>
+                    <Button BackgroundColor="Transparent" Clicked="OnLogoARPAVButtonPressed" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
+                </AbsoluteLayout>
+
+                <Image x:Name="logoSNPA"  Source="{local:EmbeddedImage ARPAVTemporali.Images.Loghi.logo_SNPA.png}" Aspect="AspectFit"></Image>
+                <Image x:Name="logoRegioneVenetoImage"  Source="{local:EmbeddedImage ARPAVTemporali.Images.Loghi.logoregioneveneto.png}" Aspect="AspectFit"></Image>
+            </StackLayout>
+
+      </Grid>
+	</ContentView.Content>
+</ContentView>

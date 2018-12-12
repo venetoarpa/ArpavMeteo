@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ARPAVTemporali.Controls.MapControl"
+    xmlns:local="clr-namespace:ARPAVTemporali;assembly=ARPAVTemporali"
+    xmlns:controls="clr-namespace:ARPAVTemporali.Controls;assembly=ARPAVTemporali"
+    xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:extensions="clr-namespace:Xamarin.Forms.GoogleMaps.Extensions:assembly=Xamarin.Forms.GoogleMaps">
+    <Grid RowSpacing="1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+<!--            <RowDefinition Height="30"/>-->
+        </Grid.RowDefinitions>
+            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <AbsoluteLayout Grid.Row="0" x:Name="layout">
+            <maps:Map x:Name="map"
+                AbsoluteLayout.LayoutFlags="All"
+                AbsoluteLayout.LayoutBounds="0, 0, 1, 1"/>
+            
+            <ffimageloading:CachedImage
+                BackgroundColor="#aaffffff"
+                InputTransparent="true"
+                AbsoluteLayout.LayoutBounds="0,1,0.8,50"
+                AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                x:Name="scalaAbsolute" Source="{local:EmbeddedImage ARPAVTemporali.Images.scala_BIG.png}">
+                   <!-- <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnLogoARPAVButtonPressed" />
+                    </Image.GestureRecognizers>-->
+            </ffimageloading:CachedImage>
+            
+
+            <controls:LayerMenuControl
+                x:Name="layerMenuContainer"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                AbsoluteLayout.LayoutBounds="1, 0.5, 40, 120"
+                BackgroundColor="Silver"/>
+
+            <Grid x:Name="animationMenu"
+                Opacity="0.8"
+                AbsoluteLayout.LayoutFlags="XProportional,WidthProportional"
+                AbsoluteLayout.LayoutBounds="0, 0, 1, 30"
+                Grid.Row="1" BackgroundColor="Silver">
+                <Grid.Padding>
+                    <OnPlatform x:TypeArguments="Thickness"
+                        iOS="5, 5, 5, 5"
+                        Android="5, 5, 5, 5"
+                        WinPhone="5, 5, 5, 5" />
+                </Grid.Padding>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                    
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <!--<ColumnDefinition Width="*"/>-->
+                </Grid.ColumnDefinitions>
+
+            <Label x:Name="dataLabel"
+                Grid.Column="0"
+                Text="{Binding DataOverlay}"
+                InputTransparent="true"
+                HorizontalTextAlignment="Start"
+                VerticalTextAlignment="Center"
+                BackgroundColor="Silver"
+                TextColor="Black"
+                Opacity="0.8"
+                AbsoluteLayout.LayoutFlags="WidthProportional"
+                AbsoluteLayout.LayoutBounds="0, 0, 1, 20"/>
+                
+                <AbsoluteLayout Grid.Column="1">
+                    <ffimageloading:CachedImage AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5,0.5,1,1"
+                        x:Name="reloadButtonImage"
+                        HorizontalOptions="FillAndExpand"
+                        Source="{local:EmbeddedImage ARPAVTemporali.Images.Icons.MapControls.reload-128.png}">
+                    </ffimageloading:CachedImage>
+                    <Button BackgroundColor="Transparent" Clicked="Handle_Reload" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
+                </AbsoluteLayout>
+
+                <AbsoluteLayout Grid.Column="2">
+                    <ffimageloading:CachedImage AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5,0.5,1,1"
+                        x:Name="playButtonImage"
+                        HorizontalOptions="FillAndExpand"
+                        Source="{local:EmbeddedImage ARPAVTemporali.Images.Icons.MapControls.play-128.png}">
+                    </ffimageloading:CachedImage>
+                    <Button x:Name="playButton" BackgroundColor="Transparent" Clicked="Handle_PlayPause" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
+                </AbsoluteLayout>
+
+                <AbsoluteLayout Grid.Column="3">
+                    <ffimageloading:CachedImage IsEnabled="false" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5,0.5,1,1"
+                        x:Name="prevButtonImage"
+                        HorizontalOptions="FillAndExpand"
+                        Source="{local:EmbeddedImage ARPAVTemporali.Images.Icons.MapControls.arrow-left-128.png}">
+                    </ffimageloading:CachedImage>
+                    <Button x:Name="prevButton" BackgroundColor="Transparent" Clicked="Handle_Prev" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
+                </AbsoluteLayout>
+
+                <AbsoluteLayout Grid.Column="4">
+                    <ffimageloading:CachedImage IsEnabled="false" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0.5,0.5,1,1"
+                        x:Name="nextButtonImage"
+                        HorizontalOptions="FillAndExpand"
+                        Source="{local:EmbeddedImage ARPAVTemporali.Images.Icons.MapControls.arrow-right-128.png}">
+                    </ffimageloading:CachedImage>
+                    <Button x:Name="nextButton" BackgroundColor="Transparent" Clicked="Handle_Next" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"/>
+                </AbsoluteLayout>
+
+            </Grid>
+        </AbsoluteLayout>
+        
+
+
+
+    </Grid>
+</ContentView>

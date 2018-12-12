@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ARPAVTemporali.Views.SettingsPages.ComuniPage"
+    xmlns:i18n="clr-namespace:ARPAVTemporali.Helpers;assembly=ARPAVTemporali"
+    NavigationPage.HasNavigationBar="false"
+    ControlTemplate="{StaticResource MainPageTemplate}"
+    >
+	<ContentPage.Content>
+        <StackLayout>
+            <StackLayout Style="{StaticResource HeaderLayout}">
+                <Label Text="{i18n:Translate Impostazioni.SelezionaLocalita.Titolo}"  Style="{StaticResource HeaderLabel}" />
+            </StackLayout>
+            
+            <StackLayout Style="{StaticResource MainBodyLayout}">
+                <Label Text="{i18n:Translate Impostazioni.Comuni.Testo}" />
+                <Button x:Name="addComuneButton" Text="aggiungi comune" Clicked="Handle_Clicked" IsEnabled="{Binding isButtonAggiungiComuneEnabled}"/>
+                <ListView x:Name="listview" ItemTapped="Handle_ItemTapped" ItemSelected="Handle_ItemSelected"  >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <!--<MenuItem Clicked="OnMore" CommandParameter="{Binding .}"
+                                       Text="More" />-->
+                                    <MenuItem Clicked="OnDelete" CommandParameter="{Binding .}"
+                                       Text="Delete" IsDestructive="True" />
+                                </ViewCell.ContextActions>
+                                <StackLayout Orientation="Horizontal"  Style="{StaticResource ViewCellLayout}">
+                                    <Label Text="{Binding Name}" Style="{StaticResource NormalCellLabel}"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </StackLayout>
+	</ContentPage.Content>
+</ContentPage>

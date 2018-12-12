@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ARPAVTemporali.Views.HomePage"
+    NavigationPage.HasNavigationBar="false"
+    Title="ARPAV"
+    xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
+    xmlns:controls="clr-namespace:ARPAVTemporali.Controls;assembly=ARPAVTemporali"
+    >
+	<ContentPage.Content>
+        <Grid ColumnSpacing="1" RowSpacing="1" BackgroundColor="Silver">
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <controls:HeaderControl x:Name="header" Grid.Row="0" Grid.Column="0" IsHome="true"/>
+            
+            <Grid Grid.Row="1" Grid.Column="0" BackgroundColor="Silver" >
+                <controls:MapControl x:Name="map"/>
+            </Grid>
+
+            <Grid Grid.Row="2" Grid.Column="0" BackgroundColor="Silver">
+                <controls:FooterControl />
+            </Grid>
+       </Grid>
+	</ContentPage.Content>
+</ContentPage>

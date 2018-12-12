@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ARPAVTemporali.Views.SettingsPages.ComunePage"
+    xmlns:i18n="clr-namespace:ARPAVTemporali.Helpers;assembly=ARPAVTemporali"
+    NavigationPage.HasNavigationBar="false"
+    ControlTemplate="{StaticResource MainPageTemplate}"
+    >
+	<ContentPage.Content>
+        <StackLayout>
+            <StackLayout Style="{StaticResource HeaderLayout}">
+                <Label Text="{Binding ComuneSettings.Name}"  Style="{StaticResource HeaderLabel}" />
+            </StackLayout>
+            
+
+            <StackLayout HorizontalOptions="FillAndExpand" Style="{StaticResource MainBodyLayout}">
+
+                <Label Text="{i18n:Translate Impostazioni.Comune.Testo}" />
+                
+                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                    <Label Text="{i18n:Translate Impostazioni.Comune.Intensita}" Style="{StaticResource PropertyLabel}"/>
+                    <Picker ItemsSource="{Binding Intensities}"
+                        Title="Scegli"
+                        HorizontalOptions="FillAndExpand"
+                        SelectedIndex="{Binding SelectedIntensityIndex}"
+                        SelectedIndexChanged="Handle_IntensityIndexChanged" />
+                </StackLayout>
+
+                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                    <Label Text="{i18n:Translate Impostazioni.Comune.Raggio}" Style="{StaticResource PropertyLabel}"/>
+                    <Picker ItemsSource="{Binding Ranges}"
+                        Title="Scegli"
+                        HorizontalOptions="FillAndExpand"
+                        SelectedIndex="{Binding SelectedRangeIndex}"
+                        SelectedIndexChanged="Handle_RaggioIndexChanged" />
+                </StackLayout>
+
+                <Grid HorizontalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                        
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+ 
+                    <Label Grid.Row="0" Grid.Column="0" Text="{i18n:Translate Impostazioni.Comune.MostraRaggio}" Style="{StaticResource PropertyLabel}"/>
+                    <Switch Grid.Row="0" Grid.Column="1"  IsToggled="{Binding ComuneSettings.ShowRange}}" HorizontalOptions="EndAndExpand" Toggled="Handle_ShowRangeToggled"/>
+                </Grid>
+
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="11" android:versionName="1.9.2" package="it.veneto.arpa.temporali">
+	<uses-sdk android:minSdkVersion="16" />
+	<!-- android:largeHeap="true" per evitare il
+	problema di memoria dei GroundOverlays su android -->
+	<application android:label="ARPAV Temporali" android:largeHeap="true">
+		<receiver android:name="com.onesignal.GcmBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND">
+			<intent-filter>
+				<action android:name="com.google.android.c2dm.intent.RECEIVE" />
+				<category android:name="it.veneto.arpa.temporali" />
+			</intent-filter>
+		</receiver>
+		<meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyB6eckukxNl0P-78XOhT0YzAl6SZRBEtJM" />
+	</application>
+	<permission android:name="it.veneto.arpa.temporali.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+	<uses-permission android:name="it.veneto.arpa.temporali.permission.C2D_MESSAGE" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+	<uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+</manifest>

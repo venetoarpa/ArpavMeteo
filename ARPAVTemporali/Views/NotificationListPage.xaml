@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ARPAVTemporali.Views.NotificationListPage"
+    xmlns:converters="clr-namespace:ARPAVTemporali.Converters;assembly=ARPAVTemporali"
+    xmlns:i18n="clr-namespace:ARPAVTemporali.Helpers;assembly=ARPAVTemporali"
+    NavigationPage.HasNavigationBar="false"
+    ControlTemplate="{StaticResource MainPageTemplate}"
+    >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- ricordati di impostare BindingContext = this nel code behind -->
+            <converters:InverseBooleanConverter x:Key="cnvInvert"></converters:InverseBooleanConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+	<ContentPage.Content>
+        <StackLayout>
+            <StackLayout Style="{StaticResource HeaderLayout}">
+                <Label Text="{i18n:Translate Notifiche.Titolo}"  Style="{StaticResource HeaderLabel}" />
+            </StackLayout>
+            
+            <StackLayout Style="{StaticResource MainBodyLayout}">
+                <Label Text="{i18n:Translate Notifiche.Testo}" />
+                <ListView x:Name="listview" ItemTapped="Handle_ItemTapped" ItemSelected="Handle_ItemSelected" HasUnevenRows="true" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <!--<TextCell Text="{Binding Title}" />-->
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <!--<MenuItem Clicked="OnMore" CommandParameter="{Binding .}"
+                                       Text="More" />-->
+                                    <MenuItem Clicked="OnDelete" CommandParameter="{Binding .}"
+                                       Text="Delete" IsDestructive="True" />
+                                </ViewCell.ContextActions>
+                                <Grid Style="{StaticResource ViewCellLayout}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                        
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="10"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                   <StackLayout Grid.Column="0" Orientation="Vertical">
+                                        <Label Text="{Binding Comune}" Style="{StaticResource NormalCellLabel}"/>
+                                        <Label Text="{Binding DataFormattata}" Style="{StaticResource DescriptionCellLabel}"/>
+                                    </StackLayout>
+                                    <StackLayout Grid.Column="1" Orientation="Horizontal">
+                                        <Label Text="•" IsVisible="{Binding IsRead, Converter={StaticResource cnvInvert}}" TextColor="Red"/>
+                                    </StackLayout>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </StackLayout>
+	</ContentPage.Content>
+</ContentPage>

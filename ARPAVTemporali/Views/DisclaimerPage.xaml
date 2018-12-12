@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ARPAVTemporali.Views.DisclaimerPage"
+    xmlns:i18n="clr-namespace:ARPAVTemporali.Helpers;assembly=ARPAVTemporali"
+    NavigationPage.HasNavigationBar="false"
+    >
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness"
+            iOS="0, 0, 0, 0"
+            Android="0, 0, 0, 0"
+            WinPhone="0, 0, 0, 0" />
+    </ContentPage.Padding>
+	<ContentPage.Content>
+        <StackLayout >
+            <StackLayout Style="{DynamicResource HeaderLayout}" Padding="{DynamicResource HeaderPadding}">
+                <Label Text="{Binding Disclaimer.Titolo}" Style="{StaticResource HeaderLabel}" />
+            </StackLayout>
+            
+            <Grid Style="{StaticResource MainBodyLayout}" VerticalOptions="FillAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <WebView x:Name="webview" Grid.Row="0" Source="{Binding HTMLSource}" IsEnabled="true" IsVisible="{Binding Loading, Converter={StaticResource cnvInvert}}"/>
+                <ActivityIndicator Grid.Row="0" IsRunning="{Binding Loading}" IsVisible="{Binding Loading}" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                <Button x:Name="okButton" Grid.Row="1" Text="Ok" IsVisible="{Binding Loading, Converter={StaticResource cnvInvert}}" IsEnabled="{Binding Loading, Converter={StaticResource cnvInvert}}"/>
+            </Grid>
+        </StackLayout>
+	</ContentPage.Content>
+</ContentPage>

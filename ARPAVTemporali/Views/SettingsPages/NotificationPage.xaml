@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ARPAVTemporali.Views.SettingsPages.NotificationPage"
+    xmlns:i18n="clr-namespace:ARPAVTemporali.Helpers;assembly=ARPAVTemporali"
+    NavigationPage.HasNavigationBar="false"
+    ControlTemplate="{StaticResource MainPageTemplate}">
+	<ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                
+                <StackLayout Style="{StaticResource HeaderLayout}">
+                    <Label Text="{i18n:Translate Impostazioni.Notifiche.Titolo}"  Style="{StaticResource HeaderLabel}" />
+                </StackLayout>
+                
+                <StackLayout Style="{StaticResource MainBodyLayout}">
+                    <Label Text="{i18n:Translate Impostazioni.Notifiche.Testo}" Style="{StaticResource NormalLabel}" />
+
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                            
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Grid.Row="0" Grid.Column="0" Text="{i18n:Translate Impostazioni.Notifiche.AbilitaNotifiche}"  Style="{StaticResource PropertyLabel}"/>
+                        <Switch x:Name="notificationEnabledSwicth" Grid.Row="0" Grid.Column="1"  IsToggled="{Binding UserSettings.NotificationEnabled}" Toggled="Handle_NotificationEnabledToggled"/>
+                    </Grid>
+
+
+                    <StackLayout IsVisible="{Binding Source={x:Reference notificationEnabledSwicth}, Path=IsToggled}">
+                        
+                        <StackLayout >
+                            <Label Text="{i18n:Translate Impostazioni.Notifiche.Intervallo}"  Style="{StaticResource PropertyLabel}"/>
+                            <Picker
+                                ItemsSource="{Binding Intervals}"
+                                Title="Scegli"
+                                HorizontalOptions="FillAndExpand"
+                                SelectedIndex="{Binding SelectedIntervalIndex}"
+                                SelectedIndexChanged="Handle_IntervalSelectedIndexChanged" />
+                        </StackLayout>
+
+                        <StackLayout >
+                            <Label Text="{i18n:Translate Impostazioni.Notifiche.Suono}"  Style="{StaticResource PropertyLabel}"/>
+                            <Picker
+                                ItemsSource="{Binding Sounds}"
+                                Title="Scegli"
+                                HorizontalOptions="FillAndExpand"
+                                SelectedIndex="{Binding SelectedSoundIndex}"
+                                SelectedIndexChanged="Handle_SoundSelectedIndexChanged" />
+                        </StackLayout>
+
+                        <StackLayout>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                    
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <Label Grid.Row="0" Grid.Column="0" Text="{i18n:Translate Impostazioni.Notifiche.NonDisturbare}"  Style="{StaticResource PropertyLabel}"/>
+                                <Switch x:Name="dndEnabledSwitch" Grid.Row="0" Grid.Column="1"  IsToggled="{Binding UserSettings.DNDEnabled}" Toggled="Handle_DNDEnabledToggled"/>
+                            </Grid>
+                            <!--Data binding tra componenti in XAML-->
+                            <Grid IsVisible="{Binding Source={x:Reference dndEnabledSwitch}, Path=IsToggled}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                    
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <StackLayout Grid.Row="1" Grid.Column="0">
+                                    <Label Text="{i18n:Translate Impostazioni.Notifiche.NonDisturbare.Da}" Style="{StaticResource PropertyLabel}"/>
+                                    <TimePicker x:Name="DND_fromPicker" Time="{Binding DNDFrom}" PropertyChanged="Handle_TimeChanged" />
+                                </StackLayout>
+                                <StackLayout Grid.Row="1" Grid.Column="1">
+                                    <Label Text="{i18n:Translate Impostazioni.Notifiche.NonDisturbare.A}" Style="{StaticResource PropertyLabel}"/>
+                                    <TimePicker x:Name="DND_toPicker" Time="{Binding DNDTo}" PropertyChanged="Handle_TimeChanged"/>
+                                </StackLayout>
+                            </Grid>
+
+                        </StackLayout>
+                    </StackLayout><!-- gruppo opzioni notifica -->
+                       
+                </StackLayout><!-- body -->
+                
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
